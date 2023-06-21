@@ -7,6 +7,8 @@ public class Faculty {
     private long id;
     private String name, color;
 
+    public Faculty() {}
+
     public Faculty(long id, String name, String color) {
         this.id = id;
         this.name = name;

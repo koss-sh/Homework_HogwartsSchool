@@ -1,11 +1,17 @@
 package ru.hogwarts.school.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
-public class Student {
 
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private int age;

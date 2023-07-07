@@ -1,21 +1,38 @@
 package ru.hogwarts.school.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Student {
 
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private int age;
 
-    public Student() {}
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
 
-    public Student(long id, String name, int age) {
+    public Student(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public Student() {
+
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public Student(long id, String name, int age, Faculty faculty) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.faculty = faculty;
     }
 
     public long getId() {

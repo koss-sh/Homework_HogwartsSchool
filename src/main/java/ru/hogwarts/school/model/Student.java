@@ -21,7 +21,6 @@ public class Student {
     }
 
     public Student() {
-
     }
 
     public Faculty getFaculty() {

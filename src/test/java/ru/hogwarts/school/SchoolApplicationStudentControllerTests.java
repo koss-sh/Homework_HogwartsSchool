@@ -13,7 +13,7 @@ import java.net.URI;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SchoolApplicationTests {
+public class SchoolApplicationStudentControllerTests {
 
     @LocalServerPort
     private int port;

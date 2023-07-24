@@ -29,9 +29,14 @@ public class SchoolApplicationStudentControllerTests {
     }
 
     @Test
-    public void testFindByAgeBetween() throws Exception {
+    public void testCreateStudent() throws Exception {
+        Student student = new Student();
+        student.setId(4L);
+        student.setName("Bob");
+        student.setAge(16);
+
         Assertions
-                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", String.class))
+                .assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/student", student, String.class))
                 .isNotNull();
     }
 
@@ -41,6 +46,14 @@ public class SchoolApplicationStudentControllerTests {
                 .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/{}", String.class))
                 .isNotNull();
     }
+
+    @Test
+    public void testFindByAgeBetween() throws Exception {
+        Assertions
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", String.class))
+                .isNotNull();
+    }
+
 
     @Test
     public void testFindFacultyByStudent() throws Exception {
@@ -56,17 +69,7 @@ public class SchoolApplicationStudentControllerTests {
                 .isNotNull();
     }
 
-    @Test
-    public void testCreateStudent() throws Exception {
-        Student student = new Student();
-        student.setId(4L);
-        student.setName("Bob");
-        student.setAge(16);
 
-        Assertions
-                .assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/student", student, String.class))
-                .isNotNull();
-    }
 
 
 }

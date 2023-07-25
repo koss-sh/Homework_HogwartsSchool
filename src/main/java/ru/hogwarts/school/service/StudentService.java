@@ -52,4 +52,17 @@ public class StudentService {
     public Faculty findFacultyByStudent(long studentId) {
         return studentRepository.findStudentById(studentId).getFaculty();
     }
+
+    public Integer getNumberOfStudents() {
+        return studentRepository.getNumberOfStudents();
+    }
+
+    public Double getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
+    }
+
 }

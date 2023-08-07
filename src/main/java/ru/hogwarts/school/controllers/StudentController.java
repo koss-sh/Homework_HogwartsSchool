@@ -8,6 +8,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/student")
 @RestController
@@ -56,5 +58,34 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(studentsByAge);
+    }
+
+    @GetMapping()
+    public ResponseEntity<Collection<Student>> findByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
+        Collection<Student> students = studentService.findByAgeBetween(minAge, maxAge);
+        if(students == null) {
+            return ResponseEntity.notFound() .build();
+        }
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("{studentId}/faculty")
+    public Faculty findFacultyByStudent(@PathVariable long studentId){
+        return studentService.findFacultyByStudent(studentId);
+    }
+
+    @GetMapping("/number-of-students")
+    public Integer getNumberOfStudents() {
+        return studentService.getNumberOfStudents();
+    }
+
+    @GetMapping("/average-age")
+    public Double getAverageAgeOfStudents() {
+        return studentService.getAverageAge();
+    }
+
+    @GetMapping("last-five-students")
+    public Collection<Student> getLastFiveStudents() {
+        return studentService.getLastFiveStudents();
     }
 }

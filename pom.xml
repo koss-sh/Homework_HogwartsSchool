@@ -12,9 +12,9 @@
     <artifactId>school</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>school</name>
-    <description>Hogwarts School of Witchcraft and Wizardry</description>
+    <description>school</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -46,7 +46,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Liqubase -->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
@@ -59,14 +58,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>16</source>
-                    <target>16</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

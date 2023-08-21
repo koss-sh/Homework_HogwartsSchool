@@ -9,7 +9,6 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/student")
 @RestController
@@ -29,8 +28,8 @@ public class StudentController {
     @GetMapping("{studentId}")
     public ResponseEntity<Student> getStudentInfo(@PathVariable long studentId) {
         Student student = studentService.findStudentById(studentId);
-        if(student == null) {
-            return ResponseEntity.notFound() .build();
+        if (student == null) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
     }
@@ -53,8 +52,8 @@ public class StudentController {
 
     @GetMapping("/age/{studentAge}")
     public ResponseEntity getStudentByAge(@PathVariable int studentAge) {
-        Collection<Student> studentsByAge= studentService.getStudentByAge(studentAge);
-        if(studentsByAge == null) {
+        Collection<Student> studentsByAge = studentService.getStudentByAge(studentAge);
+        if (studentsByAge == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(studentsByAge);
@@ -63,14 +62,14 @@ public class StudentController {
     @GetMapping()
     public ResponseEntity<Collection<Student>> findByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
         Collection<Student> students = studentService.findByAgeBetween(minAge, maxAge);
-        if(students == null) {
-            return ResponseEntity.notFound() .build();
+        if (students == null) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(students);
     }
 
     @GetMapping("{studentId}/faculty")
-    public Faculty findFacultyByStudent(@PathVariable long studentId){
+    public Faculty findFacultyByStudent(@PathVariable long studentId) {
         return studentService.findFacultyByStudent(studentId);
     }
 
@@ -81,11 +80,21 @@ public class StudentController {
 
     @GetMapping("/average-age")
     public Double getAverageAgeOfStudents() {
-        return studentService.getAverageAge();
+        return studentService.getAverageAge_repo();
     }
 
-    @GetMapping("last-five-students")
+    @GetMapping("/last-five-students")
     public Collection<Student> getLastFiveStudents() {
         return studentService.getLastFiveStudents();
+    }
+
+    @GetMapping("/A-names")
+    public List<String> get_A_names() {
+        return studentService.get_A_Names();
+    }
+
+    @GetMapping("/avg-age")
+    public Double getAverageAge_stream() {
+        return studentService.getAverageAge_stream();
     }
 }

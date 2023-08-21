@@ -10,7 +10,9 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -57,6 +59,34 @@ public class FacultyService {
     public List<Student> findStudentsByFaculty(long facultyId){
         logger.debug("Getting all students of faculty: {}", facultyId);
         return studentRepository.findAllByFaculty_Id(facultyId);
+    }
+
+    public String getLongestName() {
+        return facultyRepository.findAll().stream()
+                .map(faculty -> faculty.getName())
+                .max(Comparator.comparing(name -> name.length()))
+                .get();
+    }
+
+    public Integer sum() {
+        long start = System.currentTimeMillis();
+        int sum = Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0, Integer::sum);
+        long finish = System.currentTimeMillis();
+        System.out.println("Executing time:" + (finish - start));
+        return sum;
+    }
+
+    public Integer sum_parallel() {
+        long start = System.currentTimeMillis();
+        int sum = Stream.iterate(1, a -> a + 1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, Integer::sum);
+        long finish = System.currentTimeMillis();
+        System.out.println("Executing time with parallel stream:" + (finish - start));
+        return sum;
     }
 
 }

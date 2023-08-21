@@ -72,4 +72,19 @@ public class FacultyController {
         return facultyService.findStudentsByFaculty(facultyId);
     }
 
+    @GetMapping("/longest-name")
+    public String getLongestName() {
+        return facultyService.getLongestName();
+    }
+
+    @GetMapping("/sum")
+    public Integer sum(){
+        return facultyService.sum();
+    }
+
+    @GetMapping("/sum-parallel")
+    public Integer sum_parallel(){
+        return facultyService.sum_parallel();
+    }
+
 }

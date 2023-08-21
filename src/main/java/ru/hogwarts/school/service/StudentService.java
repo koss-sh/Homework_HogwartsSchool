@@ -67,7 +67,7 @@ public class StudentService {
         return studentRepository.getNumberOfStudents();
     }
 
-    public Double getAverageAge() {
+    public Double getAverageAge_repo() {
         logger.debug("Getting students' average age");
         return studentRepository.getAverageAge();
     }
@@ -75,6 +75,21 @@ public class StudentService {
     public List<Student> getLastFiveStudents() {
         logger.debug("Getting last 5 created students");
         return studentRepository.getLastFiveStudents();
+    }
+
+    public List<String> get_A_Names() {
+        return studentRepository.findAll().stream()
+                .map(student -> student.getName().toUpperCase())
+                .filter(name -> name.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public double getAverageAge_stream() {
+        return studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge)
+                .average()
+                .orElse(0.0);
     }
 
 }

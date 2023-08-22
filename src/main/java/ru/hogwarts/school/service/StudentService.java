@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 @Service
 public class StudentService {
 
@@ -30,7 +32,7 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student findStudentById(long id){
+    public Student findStudentById(long id) {
         logger.debug("Getting student with id: {}", id);
         return studentRepository.findById(id).get();
     }
@@ -52,7 +54,7 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    public List<Student> findByAgeBetween (int minAge, int maxAge) {
+    public List<Student> findByAgeBetween(int minAge, int maxAge) {
         logger.debug("Getting students with age from {} to {}", minAge, maxAge);
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
@@ -92,4 +94,49 @@ public class StudentService {
                 .orElse(0.0);
     }
 
+    public void threadsSixStudents() {
+        List<String> students = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .collect(Collectors.toList());
+        printStudent(students.get(0), students.get(1));
+        new Thread(() -> {
+            printStudent(students.get(2), students.get(3));
+        }).start();
+        new Thread(() -> {
+            printStudent(students.get(4), students.get(5));
+        }).start();
+    }
+
+    private void printStudent(String name1, String name2) {
+        try {
+            System.out.println(name1);
+            sleep(100);
+            System.out.println(name2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void threadsSixStudentsSync() {
+        List<String> students = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .collect(Collectors.toList());
+        printStudentSync(students.get(0), students.get(1));
+        new Thread(() -> {
+            printStudentSync(students.get(2), students.get(3));
+        }).start();
+        new Thread(() -> {
+            printStudentSync(students.get(4), students.get(5));
+        }).start();
+    }
+
+    private synchronized void printStudentSync(String name1, String name2) {
+        try {
+            System.out.println(name1);
+            sleep(100);
+            System.out.println(name2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
